@@ -30,7 +30,7 @@ if threshold_time is not None:
     current_date = date.today()
     threshold_datetime = datetime(
         current_date.year, current_date.month, current_date.day,
-        threshold_time.hour, threshold_time.minute, 0, 0
+        threshold_time.hour + int(st.secrets["timezone_delta"]), threshold_time.minute, 0, 0
     )
     st.write(time.mktime(threshold_datetime.timetuple()) * 1000)
     st.write(threshold_datetime)
