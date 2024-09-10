@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
 import pymongo
-from datetime import datetime, date
+from datetime import datetime, date, timezone, timedelta
 import time
 
 TRANSLATIONS = {
@@ -32,6 +32,11 @@ if threshold_time is not None:
         current_date.year, current_date.month, current_date.day,
         threshold_time.hour, threshold_time.minute, 0, 0
     )
+    st.write(time.mktime(threshold_datetime.timetuple()) * 1000)
+    st.write(threshold_datetime)
+    threshold_datetime = threshold_datetime.replace(tzinfo=timezone(timedelta(hours=3)))
+    st.write(time.mktime(threshold_datetime.timetuple()) * 1000)
+    st.write(threshold_datetime)
     unix_timestamp_threshold = time.mktime(threshold_datetime.timetuple()) * 1000
 
     recent_predictions_events = st.session_state['db']["events"].find(
