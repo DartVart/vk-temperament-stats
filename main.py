@@ -32,11 +32,6 @@ if threshold_time is not None:
         current_date.year, current_date.month, current_date.day,
         threshold_time.hour + int(st.secrets["timezone_delta"]), threshold_time.minute, 0, 0
     )
-    st.write(time.mktime(threshold_datetime.timetuple()) * 1000)
-    st.write(threshold_datetime)
-    threshold_datetime = threshold_datetime.replace(tzinfo=timezone(timedelta(hours=3)))
-    st.write(time.mktime(threshold_datetime.timetuple()) * 1000)
-    st.write(threshold_datetime)
     unix_timestamp_threshold = time.mktime(threshold_datetime.timetuple()) * 1000
 
     recent_predictions_events = st.session_state['db']["events"].find(
